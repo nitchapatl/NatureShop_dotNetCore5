@@ -65,6 +65,40 @@ namespace NatureShopWeb.Controllers
             return View(productVM);
         }
 
+        [HttpGet]
+        public ActionResult GetProductDetail(int id)
+        {
+            var product = _db.Product.Where(u => u.ProductId == id).FirstOrDefault();
+
+            ProductViewModel model = new ProductViewModel();
+            model.Product = product;
+
+            RegionInfo regioninfo = new RegionInfo("TH");
+            model.CurrencySymbol = regioninfo.CurrencyNativeName;
+
+            if (product.InStock == false)
+            {
+                model.IsInStock = "Stock Out";
+            }
+            else
+            {
+                model.IsInStock = "In Stock";
+            }
+
+            if (product.Discount > 0)
+            {
+                double DiscountSale = (product.Discount * product.Price) / 100;
+
+                model.SalePrice = product.Price - DiscountSale;
+            }
+            else
+            {
+                model.SalePrice = product.Price;
+            }
+
+            return PartialView(model);
+        }
+
         public IActionResult Privacy()
         {
             return View();

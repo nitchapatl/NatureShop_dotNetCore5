@@ -8,9 +8,6 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>-->
-
-
-
 <!--@foreach (var item in Model)
 {
     <p> @item.Product.ProductId</p>
@@ -26,7 +23,6 @@
     <p> @item.IsInStock</p>
     <p> @item.SalePrice</p>
 }-->
-
 <!--new-arrivals start -->
 <section id="new-arrivals" class="new-arrivals">
     <div class="container">
@@ -42,30 +38,51 @@
                             <div class="single-new-arrival-bg">
                                 <img src="@Url.Content("~/images/" + item.Product.Image)" alt="new-arrivals images" width="100" height="100">
                                 <div class="single-new-arrival-bg-overlay"></div>
-                                
+
                                 @if (item.Product.Discount > 0)
                                 {
-                                <div class="sale bg-1">
-                                    <p>sale</p>
-                                </div>
+                                    <div class="sale bg-1">
+                                        <p>sale</p>
+                                    </div>
                                 }
-                                
-                                <div class="new-arrival-cart">
+
+                                <!--<div class="new-arrival-cart">
                                     <p>
                                         <span class="lnr lnr-cart"></span>
                                         <a href="#">add <span>to </span> cart</a>
                                     </p>
-                                </div>
+                                </div>-->
                             </div>
-                            <h4><a href="#">@item.Product.ProductName</a></h4>
+                            <h4><a href="#" onclick="displayProductDetailModal('@Url.Action("GetProductDetail", "Home" , new {id=item.Product.ProductId })')">@item.Product.ProductName</a></h4>
                             <p class="arrival-product-price">@item.Product.Price @item.CurrencySymbol </p>
                         </div>
                     </div>
                 }
-                    
-                </div>
+
+            </div>
         </div>
     </div><!--/.container-->
 
 </section><!--/.new-arrivals-->
 <!--new-arrivals end -->
+
+<!-- Modal -->
+<div class="modal fade" id="productDetailModal" role="dialog" aria-labelledby="productDetailModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" id="modelContent">
+            
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function displayProductDetailModal(url) {
+
+
+        $('#modelContent').load(url);
+        $('#productDetailModal').modal('show');
+
+        }
+</script>
+

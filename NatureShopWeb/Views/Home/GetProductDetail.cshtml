@@ -1,0 +1,65 @@
+﻿@model NatureShopWeb.ViewModels.ProductViewModel
+
+<div class="modal-body">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true"><i class="fa fa-times-circle"></i></span>
+    </button>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-5"><img src="@Url.Content("~/images/" + @Model.Product.Image)" class="float-left"></div>
+            <div class="col-md-7">
+                <div>
+                    <h2>@Model.Product.ProductName</h2>
+
+                    <span class="badge badge-success">@Model.Product.ProductType</span>
+
+                    <p>
+                        สินค้าขายดี :
+                        @{ int j = @Model.Product.BestSeller; }
+                        @for (int i = 1; i <= j; i++)
+                        {
+                            <span class="fa fa-star text-warning"></span>
+                        }
+                        @for (int i = 1; i <= 5 - j; i++)
+                        {
+                            <span class="fa fa-star text-muted"></span>
+                        }
+                    </p>
+
+                    <p>รายละเอียด : @Model.Product.Detail</p>
+
+                    <p class="text-success">
+                        สต๊อกสินค้า :
+                        @if (Model.Product.InStock == true)
+                        {
+                            @Model.IsInStock
+
+                        }
+                        else
+                        {
+                            @Model.IsInStock
+                        }
+                    </p>
+
+                    <p>
+                        ราคา : @if (Model.Product.Discount > 0)
+                        {<del>@Model.Product.Price</del>} @Model.SalePrice @Model.CurrencySymbol
+                    </p>
+
+
+
+                    <p>
+
+
+                        <label for="qty">จำนวน:</label>
+                        <input type="text" name="qty" id="sst" size="2" maxlength="12" value="1" title="Quantity:" class="input-text qty">
+                        <a class="button btn-dark" href="#">Add to Cart</a>
+                    </p>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
